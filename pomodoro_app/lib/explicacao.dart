@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pomodoro_app/tempo.dart';
 
 class ExplicacaoScreen extends StatelessWidget {
   @override
@@ -60,7 +61,11 @@ class ExplicacaoScreen extends StatelessWidget {
             SizedBox(height: 20.0),
             ElevatedButton(
               onPressed: () {
-                // Ação ao pressionar o botão "VAMOS COMEÇAR"
+                // Navegar para a tela TempoScreen quando o botão for pressionado
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => TempoScreen()),
+                );
               },
               child: Text('VAMOS COMEÇAR'),
             ),
