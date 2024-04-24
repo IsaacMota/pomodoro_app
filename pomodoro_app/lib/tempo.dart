@@ -29,11 +29,16 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
   int workDuration = 25 * 60; // 25 minutes in seconds
   int breakDuration = 5 * 60; // 5 minutes in seconds
   int longBreakDuration = 15 * 60; // 15 minutes in seconds
-  int cycles = 1;
-  int currentCycle = 1;
   int completedCycles = 0;
   int secondsRemaining = 1500; // 25 minutes in seconds
   late Timer timer;
+  String selectedCategory = 'Estudo'; // Default selected category
+  List<Map<String, dynamic>> categories = [
+    {'name': 'Estudo', 'color': Colors.blue},
+    {'name': 'Trabalho', 'color': Colors.red},
+    {'name': 'Entretenimento', 'color': Colors.orange},
+    {'name': 'Social', 'color': Colors.green},
+  ];
 
   void startTimer() {
     setState(() {
@@ -87,6 +92,13 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
         isWorkTime = true;
         secondsRemaining = workDuration;
       }
+    });
+  }
+
+  void resetCycleAndTime() {
+    setState(() {
+      completedCycles = 0;
+      secondsRemaining = workDuration;
     });
   }
 
@@ -161,23 +173,36 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
             children: <Widget>[
               ElevatedButton(
                 onPressed: changeToWork,
-                child: Text('Pomodoro'),
+                child: Text('Estudo'),
               ),
               ElevatedButton(
                 onPressed: changeToBreak,
-                child: Text('Pausa Curta'),
+                child: Text('Trabalho'),
               ),
               ElevatedButton(
                 onPressed: changeToLongBreak,
-                child: Text('Pausa Longa'),
+                child: Text('Entretenimento'),
               ),
             ],
           ),
           SizedBox(height: 20),
-          SizedBox(height: 20),
-          Text(
-            formatDuration(secondsRemaining),
-            style: TextStyle(fontSize: 48),
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              SizedBox(
+                height: 150,
+                width: 150,
+                child: CircularProgressIndicator(
+                  value: 1 - (secondsRemaining / workDuration),
+                  strokeWidth: 10,
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                ),
+              ),
+              Text(
+                formatDuration(secondsRemaining),
+                style: TextStyle(fontSize: 48),
+              ),
+            ],
           ),
           SizedBox(height: 20),
           Row(
@@ -197,6 +222,36 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
           Text(
             'Ciclo: ${completedCycles}#',
             style: TextStyle(fontSize: 20),
+          ),
+          SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: resetCycleAndTime,
+            child: Text('Reiniciar Ciclo e Tempo'),
+          ),
+          SizedBox(height: 20),
+          DropdownButton<String>(
+            value: selectedCategory,
+            onChanged: (value) {
+              setState(() {
+                selectedCategory = value!;
+              });
+            },
+            items: categories.map<DropdownMenuItem<String>>((category) {
+              return DropdownMenuItem<String>(
+                value: category['name'],
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.circle,
+                      color: category['color'],
+                      size: 16,
+                    ),
+                    SizedBox(width: 8),
+                    Text(category['name']),
+                  ],
+                ),
+              );
+            }).toList(),
           ),
         ],
       ),
@@ -337,3 +392,4 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 }
+

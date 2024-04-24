@@ -8,6 +8,7 @@ class ExplicacaoScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(''), // Removido o texto da AppBar
       ),
+      backgroundColor: const Color.fromARGB(255, 219, 219, 219),
       body: Padding(
         padding: EdgeInsets.all(20.0),
         child: Column(
