@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pomodoro_app/explicacao.dart';
 import 'dart:async';
+
+import 'package:pomodoro_app/perfil.dart';
 
 void main() {
   runApp(TempoScreen());
@@ -29,11 +32,24 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
   int workDuration = 25 * 60; // 25 minutes in seconds
   int breakDuration = 5 * 60; // 5 minutes in seconds
   int longBreakDuration = 15 * 60; // 15 minutes in seconds
-  int cycles = 1;
-  int currentCycle = 1;
   int completedCycles = 0;
   int secondsRemaining = 1500; // 25 minutes in seconds
   late Timer timer;
+  String selectedCategory = 'Estudo'; // Default selected category
+  List<Map<String, dynamic>> categories = [
+    {'name': 'Estudo', 'color': Colors.blue},
+    {'name': 'Trabalho', 'color': Colors.red},
+    {'name': 'Entretenimento', 'color': Colors.orange},
+    {'name': 'Social', 'color': Colors.green},
+    {
+      'name': 'Esporte',
+      'color': Color.fromARGB(255, 255, 217, 0)
+    }, // Novo tema: Esporte
+    {
+      'name': 'Outro',
+      'color': Color.fromARGB(255, 50, 255, 245)
+    }, // Novo tema: Outro
+  ];
 
   void startTimer() {
     setState(() {
@@ -90,6 +106,13 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
     });
   }
 
+  void resetCycleAndTime() {
+    setState(() {
+      completedCycles = 0;
+      secondsRemaining = workDuration;
+    });
+  }
+
   String formatDuration(int durationInSeconds) {
     int minutes = durationInSeconds ~/ 60;
     int seconds = durationInSeconds % 60;
@@ -109,6 +132,41 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
         secondsRemaining = workDuration;
       });
     }
+  }
+
+  void goToExplanationScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ExplicacaoScreen()),
+    );
+  }
+
+  void goToProfileScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ProfileApp()),
+    );
+  }
+
+  void goToFriendsScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => FriendsScreen()),
+    );
+  }
+
+  void goToReportsScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ReportsScreen()),
+    );
+  }
+
+  void goToCardsScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => CardsScreen()),
+    );
   }
 
   void changeToWork() {
@@ -152,6 +210,72 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
       appBar: AppBar(
         title: Text('Pomodoro Timer'),
       ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.all(16.0),
+              color: Color.fromARGB(255, 226, 240, 252),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Pontuações:',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 8.0),
+                  Text(
+                    'Cristal Azul : 0',
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontSize: 16.0,
+                    ),
+                  ),
+                  Text(
+                    'Cristal Vermelho : 0',
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 16.0,
+                    ),
+                  ),
+                  Text(
+                    'Cristal Verde : 0',
+                    style: TextStyle(
+                      color: Colors.green,
+                      fontSize: 16.0,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            ListTile(
+              title: Text('Perfil'),
+              onTap: goToProfileScreen, // Vai para a tela do perfil
+            ),
+            ListTile(
+              title: Text('Amigos'),
+              onTap: goToFriendsScreen, // Vai para a tela de amigos
+            ),
+            ListTile(
+              title: Text('Relatórios'),
+              onTap: goToReportsScreen, // Vai para a tela de relatórios
+            ),
+            ListTile(
+              title: Text('Cards'),
+              onTap: goToCardsScreen, // Vai para a tela de cards
+            ),
+            ListTile(
+              title: Text('Informações'),
+              onTap: goToExplanationScreen, // Vai para a tela de explicação
+            ),
+          ],
+        ),
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -165,7 +289,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
               ),
               ElevatedButton(
                 onPressed: changeToBreak,
-                child: Text('Pausa Curta'),
+                child: Text('Pausa curta'),
               ),
               ElevatedButton(
                 onPressed: changeToLongBreak,
@@ -174,10 +298,23 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
             ],
           ),
           SizedBox(height: 20),
-          SizedBox(height: 20),
-          Text(
-            formatDuration(secondsRemaining),
-            style: TextStyle(fontSize: 48),
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              SizedBox(
+                height: 150,
+                width: 150,
+                child: CircularProgressIndicator(
+                  value: 1 - (secondsRemaining / workDuration),
+                  strokeWidth: 10,
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                ),
+              ),
+              Text(
+                formatDuration(secondsRemaining),
+                style: TextStyle(fontSize: 48),
+              ),
+            ],
           ),
           SizedBox(height: 20),
           Row(
@@ -197,6 +334,36 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
           Text(
             'Ciclo: ${completedCycles}#',
             style: TextStyle(fontSize: 20),
+          ),
+          SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: resetCycleAndTime,
+            child: Text('Reiniciar Ciclo e Tempo'),
+          ),
+          SizedBox(height: 20),
+          DropdownButton<String>(
+            value: selectedCategory,
+            onChanged: (value) {
+              setState(() {
+                selectedCategory = value!;
+              });
+            },
+            items: categories.map<DropdownMenuItem<String>>((category) {
+              return DropdownMenuItem<String>(
+                value: category['name'],
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.circle,
+                      color: category['color'],
+                      size: 16,
+                    ),
+                    SizedBox(width: 8),
+                    Text(category['name']),
+                  ],
+                ),
+              );
+            }).toList(),
           ),
         ],
       ),
@@ -333,6 +500,48 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class FriendsScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Amigos'),
+      ),
+      body: Center(
+        child: Text('Esta é a tela de amigos.'),
+      ),
+    );
+  }
+}
+
+class ReportsScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Relatórios'),
+      ),
+      body: Center(
+        child: Text('Esta é a tela de relatórios.'),
+      ),
+    );
+  }
+}
+
+class CardsScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Cards'),
+      ),
+      body: Center(
+        child: Text('Esta é a tela de cards.'),
       ),
     );
   }
