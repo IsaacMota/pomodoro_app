@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pomodoro_app/explicacao.dart';
 import 'dart:async';
 
+import 'package:pomodoro_app/explicacao.dart';
 import 'package:pomodoro_app/perfil.dart';
 
 void main() {
