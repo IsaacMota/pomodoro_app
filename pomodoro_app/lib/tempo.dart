@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:pomodoro_app/amigos.dart';
+import 'package:pomodoro_app/cards.dart';
 import 'dart:async';
 
 import 'package:pomodoro_app/explicacao.dart';
 import 'package:pomodoro_app/perfil.dart';
+import 'package:pomodoro_app/relatorio.dart';
 
 void main() {
   runApp(TempoScreen());
@@ -151,21 +154,21 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
   void goToFriendsScreen() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => FriendsScreen()),
+      MaterialPageRoute(builder: (context) => Amigoslist()),
     );
   }
 
   void goToReportsScreen() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => ReportsScreen()),
+      MaterialPageRoute(builder: (context) => RelatorioScreen()),
     );
   }
 
   void goToCardsScreen() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => CardsScreen()),
+      MaterialPageRoute(builder: (context) => CardScreen()),
     );
   }
 
@@ -500,48 +503,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class FriendsScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Amigos'),
-      ),
-      body: Center(
-        child: Text('Esta é a tela de amigos.'),
-      ),
-    );
-  }
-}
-
-class ReportsScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Relatórios'),
-      ),
-      body: Center(
-        child: Text('Esta é a tela de relatórios.'),
-      ),
-    );
-  }
-}
-
-class CardsScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Cards'),
-      ),
-      body: Center(
-        child: Text('Esta é a tela de cards.'),
       ),
     );
   }
