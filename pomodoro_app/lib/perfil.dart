@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pomodoro_app/tempo.dart';
 
 class ProfileApp extends StatelessWidget {
   @override
@@ -24,12 +23,7 @@ class ProfileScreen extends StatelessWidget {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) =>
-                    TempoScreen(), // Navega de volta para TempoScreen
-              ),
-            );
+            Navigator.of(context).pop(); // Volta para a tela anterior
           },
         ),
       ),

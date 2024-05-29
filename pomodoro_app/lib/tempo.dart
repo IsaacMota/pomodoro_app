@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pomodoro_app/amigos.dart';
-import 'package:pomodoro_app/cards.dart';
+
 import 'dart:async';
 
+import 'package:pomodoro_app/cards.dart';
 import 'package:pomodoro_app/explicacao.dart';
 import 'package:pomodoro_app/perfil.dart';
 import 'package:pomodoro_app/relatorio.dart';
@@ -147,7 +148,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
   void goToProfileScreen() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => ProfileApp()),
+      MaterialPageRoute(builder: (context) => ProfileScreen()),
     );
   }
 
