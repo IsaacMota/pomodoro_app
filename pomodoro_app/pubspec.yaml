@@ -11,6 +11,7 @@ dependencies:
     sdk: flutter
   smooth_page_indicator: ^1.1.0  # Versão atualizada
   cupertino_icons: ^1.0.6
+ 
 
 dev_dependencies:
   flutter_test:

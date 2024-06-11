@@ -19,14 +19,19 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Perfil'),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.of(context).pop(); // Volta para a tela anterior
-          },
+        backgroundColor:
+            Colors.green[900], // Cor de fundo do topo em verde escuro
+        title: Text(
+          'Perfil',
+          style: TextStyle(
+            color: Colors.white, // Cor do texto em branco
+          ),
+        ),
+        iconTheme: IconThemeData(
+          color: Colors.white, // Cor do ícone da seta em branco
         ),
       ),
+      backgroundColor: Colors.green[300], // Cor de fundo da tela em verde
       body: SingleChildScrollView(
         padding: EdgeInsets.all(20),
         child: ProfileWidget(),
@@ -56,21 +61,37 @@ class ProfileWidget extends StatelessWidget {
         ),
         SizedBox(height: 20),
         TextField(
-          decoration: InputDecoration(labelText: 'Nome'),
+          decoration: InputDecoration(
+            labelText: 'Nome',
+            fillColor: Colors.white, // Cor do campo de texto em branco
+            filled: true,
+          ),
         ),
         SizedBox(height: 10),
         TextField(
-          decoration: InputDecoration(labelText: 'Email'),
+          decoration: InputDecoration(
+            labelText: 'Email',
+            fillColor: Colors.white, // Cor do campo de texto em branco
+            filled: true,
+          ),
         ),
         SizedBox(height: 10),
         TextField(
           obscureText: true,
-          decoration: InputDecoration(labelText: 'Senha'),
+          decoration: InputDecoration(
+            labelText: 'Senha',
+            fillColor: Colors.white, // Cor do campo de texto em branco
+            filled: true,
+          ),
         ),
         SizedBox(height: 10),
         TextField(
           obscureText: true,
-          decoration: InputDecoration(labelText: 'Nova Senha'),
+          decoration: InputDecoration(
+            labelText: 'Nova Senha',
+            fillColor: Colors.white, // Cor do campo de texto em branco
+            filled: true,
+          ),
         ),
         SizedBox(height: 5),
         GestureDetector(
@@ -90,7 +111,16 @@ class ProfileWidget extends StatelessWidget {
           onPressed: () {
             // Ação para salvar as informações
           },
-          child: Text('Salvar'),
+          child: Text(
+            'Salvar',
+            style: TextStyle(
+              color: Colors.white, // Cor do texto do botão em branco
+            ),
+          ),
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(
+                Colors.green[900]), // Cor do botão em verde escuro
+          ),
         ),
       ],
     );

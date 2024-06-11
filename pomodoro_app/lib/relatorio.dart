@@ -5,115 +5,107 @@ class RelatorioScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Relatório'),
+        backgroundColor: Colors.green[900],
+        title: Text(
+          'Relatório',
+          style: TextStyle(color: Colors.white),
+        ),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.of(context).pop(); // Volta para a tela anterior
+            Navigator.of(context).pop();
           },
+          color: Colors.white,
         ),
       ),
-      body: Scrollbar(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.all(20.0),
+      body: Container(
+        color: Colors.green[300],
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Informações adicionais
               Container(
-                margin: EdgeInsets.symmetric(vertical: 20.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    // Horas totais no app
-                    Container(
-                      padding: EdgeInsets.all(10.0),
-                      decoration: BoxDecoration(
-                        border: Border.all(),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      child: Column(
-                        children: [
-                          Text(
-                            'Horas Totais',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            '07:10 horas', // Substitua pelo valor real
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    // Dias totais acessados no app
-                    Container(
-                      padding: EdgeInsets.all(10.0),
-                      decoration: BoxDecoration(
-                        border: Border.all(),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      child: Column(
-                        children: [
-                          Text(
-                            'Dias Totais',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            '5 dias', // Substitua pelo valor real
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    // Sequencia de dias acessados
-                    Container(
-                      padding: EdgeInsets.all(10.0),
-                      decoration: BoxDecoration(
-                        border: Border.all(),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      child: Column(
-                        children: [
-                          Text(
-                            'Sequência de Dias',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            '3 dias', // Substitua pelo valor real
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
-              // Histórico de tempo utilizado em cada tema
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 20.0),
-                padding: EdgeInsets.all(20.0),
+                padding: EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  border: Border.all(),
-                  borderRadius: BorderRadius.circular(10.0),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
                 ),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Column(
+                          children: [
+                            Text(
+                              'Horas Totais',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.green[900],
+                              ),
+                            ),
+                            SizedBox(height: 5),
+                            Text(
+                              '07:10 horas',
+                              style: TextStyle(
+                                color: Colors.green[900],
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              'Dias Totais',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.green[900],
+                              ),
+                            ),
+                            SizedBox(height: 5),
+                            Text(
+                              '5 dias',
+                              style: TextStyle(
+                                color: Colors.green[900],
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              'Sequência de Dias',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.green[900],
+                              ),
+                            ),
+                            SizedBox(height: 5),
+                            Text(
+                              '3 dias',
+                              style: TextStyle(
+                                color: Colors.green[900],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                    Divider(
+                      color: Colors.green[900],
+                    ),
+                    SizedBox(height: 20),
                     Text(
                       'Histórico de Tempo por Tema:',
                       style: TextStyle(
                         fontSize: 18.0,
                         fontWeight: FontWeight.bold,
+                        color: Colors.green[900],
                       ),
                     ),
-                    SizedBox(height: 10.0),
-                    // Exemplo de histórico de tempo por tema
+                    SizedBox(height: 10),
                     buildTemaItem(
                       'Estudo',
                       {'22/05/2024': '2 horas', '21/05/2024': '1 hora'},
@@ -165,7 +157,7 @@ class RelatorioScreen extends StatelessWidget {
             color: cor,
           ),
         ),
-        SizedBox(height: 5.0),
+        SizedBox(height: 10),
         Column(
           children: tempos.entries.map((entry) {
             return Padding(
@@ -173,8 +165,8 @@ class RelatorioScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(entry.key), // Data
-                  Text(entry.value), // Tempo
+                  Text(entry.key),
+                  Text(entry.value),
                 ],
               ),
             );
@@ -184,4 +176,10 @@ class RelatorioScreen extends StatelessWidget {
       ],
     );
   }
+}
+
+void main() {
+  runApp(MaterialApp(
+    home: RelatorioScreen(),
+  ));
 }

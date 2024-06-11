@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:pomodoro_app/amigos.dart';
-
+import 'package:pomodoro/amigos.dart';
+import 'package:pomodoro/cards.dart';
 import 'dart:async';
-
-import 'package:pomodoro_app/cards.dart';
-import 'package:pomodoro_app/explicacao.dart';
-import 'package:pomodoro_app/perfil.dart';
-import 'package:pomodoro_app/relatorio.dart';
+import 'package:pomodoro/explicacao.dart';
+import 'package:pomodoro/perfil.dart';
+import 'package:pomodoro/relatorio.dart';
 
 void main() {
   runApp(TempoScreen());
@@ -41,10 +39,10 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
   late Timer timer;
   String selectedCategory = 'Estudo'; // Default selected category
   List<Map<String, dynamic>> categories = [
-    {'name': 'Estudo', 'color': Colors.blue},
+    {'name': 'Estudo', 'color': Color.fromARGB(255, 22, 123, 255)},
     {'name': 'Trabalho', 'color': Colors.red},
     {'name': 'Entretenimento', 'color': Colors.orange},
-    {'name': 'Social', 'color': Colors.green},
+    {'name': 'Social', 'color': Color.fromARGB(255, 169, 10, 190)},
     {
       'name': 'Esporte',
       'color': Color.fromARGB(255, 255, 217, 0)
@@ -212,74 +210,87 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Pomodoro Timer'),
+        backgroundColor: Colors
+            .green[900], // Definindo a cor de fundo do topo como verde escuro
+        title: Text(
+          'Pomodoro Timer',
+          style: TextStyle(
+              color: Colors.white), // Definindo a cor do texto como branco
+        ),
+        iconTheme: IconThemeData(
+            color: Colors
+                .white), // Definindo a cor do ícone da aba lateral como branco
       ),
       drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.all(16.0),
-              color: Color.fromARGB(255, 226, 240, 252),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Pontuações:',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
-                    ),
+        child: Container(
+          color: Colors.green[700], // Cor de fundo verde escuro
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Colors.green[900], // Cor de fundo do cabeçalho
+                ),
+                child: Text(
+                  'Pomodoro Timer',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
                   ),
-                  SizedBox(height: 8.0),
-                  Text(
-                    'Cristal Azul : 0',
-                    style: TextStyle(
-                      color: Colors.blue,
-                      fontSize: 16.0,
-                    ),
-                  ),
-                  Text(
-                    'Cristal Vermelho : 0',
-                    style: TextStyle(
-                      color: Colors.red,
-                      fontSize: 16.0,
-                    ),
-                  ),
-                  Text(
-                    'Cristal Verde : 0',
-                    style: TextStyle(
-                      color: Colors.green,
-                      fontSize: 16.0,
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
-            ListTile(
-              title: Text('Perfil'),
-              onTap: goToProfileScreen, // Vai para a tela do perfil
-            ),
-            ListTile(
-              title: Text('Amigos'),
-              onTap: goToFriendsScreen, // Vai para a tela de amigos
-            ),
-            ListTile(
-              title: Text('Relatórios'),
-              onTap: goToReportsScreen, // Vai para a tela de relatórios
-            ),
-            ListTile(
-              title: Text('Cards'),
-              onTap: goToCardsScreen, // Vai para a tela de cards
-            ),
-            ListTile(
-              title: Text('Informações'),
-              onTap: goToExplanationScreen, // Vai para a tela de explicação
-            ),
-          ],
+              ListTile(
+                leading: Icon(Icons.person_outline,
+                    color: Colors.white), // Ícone do perfil
+                title: Text(
+                  'Perfil',
+                  style: TextStyle(color: Colors.white),
+                ),
+                onTap: goToProfileScreen,
+              ),
+              ListTile(
+                leading: Icon(Icons.people_outline,
+                    color: Colors.white), // Ícone de amigos
+                title: Text(
+                  'Amigos',
+                  style: TextStyle(color: Colors.white),
+                ),
+                onTap: goToFriendsScreen,
+              ),
+              ListTile(
+                leading: Icon(Icons.bar_chart_outlined,
+                    color: Colors.white), // Ícone de relatórios
+                title: Text(
+                  'Relatórios',
+                  style: TextStyle(color: Colors.white),
+                ),
+                onTap: goToReportsScreen,
+              ),
+              ListTile(
+                leading: Icon(Icons.library_books_outlined,
+                    color: Colors.white), // Ícone de cards
+                title: Text(
+                  'Cards',
+                  style: TextStyle(color: Colors.white),
+                ),
+                onTap: goToCardsScreen,
+              ),
+              ListTile(
+                leading: Icon(Icons.info_outline,
+                    color: Colors.white), // Ícone de informações
+                title: Text(
+                  'Informações',
+                  style: TextStyle(color: Colors.white),
+                ),
+                onTap: goToExplanationScreen,
+              ),
+            ],
+          ),
         ),
       ),
+
+      backgroundColor: Colors.green, // Definindo o fundo como verde
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -289,15 +300,42 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
             children: <Widget>[
               ElevatedButton(
                 onPressed: changeToWork,
-                child: Text('Pomodoro'),
+                child: Text(
+                  'Pomodoro',
+                  style: TextStyle(
+                      color:
+                          Colors.white), // Definindo a cor do texto como branco
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors
+                      .green[700], // Definindo a cor de fundo como verde escuro
+                ),
               ),
               ElevatedButton(
                 onPressed: changeToBreak,
-                child: Text('Pausa curta'),
+                child: Text(
+                  'Pausa curta',
+                  style: TextStyle(
+                      color:
+                          Colors.white), // Definindo a cor do texto como branco
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors
+                      .green[700], // Definindo a cor de fundo como verde escuro
+                ),
               ),
               ElevatedButton(
                 onPressed: changeToLongBreak,
-                child: Text('Pausa Longa'),
+                child: Text(
+                  'Pausa Longa',
+                  style: TextStyle(
+                      color:
+                          Colors.white), // Definindo a cor do texto como branco
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors
+                      .green[700], // Definindo a cor de fundo como verde escuro
+                ),
               ),
             ],
           ),
@@ -311,12 +349,15 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
                 child: CircularProgressIndicator(
                   value: 1 - (secondsRemaining / workDuration),
                   strokeWidth: 10,
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                      Color.fromARGB(166, 255, 40, 40)),
                 ),
               ),
               Text(
                 formatDuration(secondsRemaining),
-                style: TextStyle(fontSize: 48),
+                style: TextStyle(
+                    fontSize: 48,
+                    color: Colors.white), // Definindo a cor como branca
               ),
             ],
           ),
@@ -326,23 +367,39 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
             children: <Widget>[
               ElevatedButton(
                 onPressed: isRunning ? pauseTimer : startTimer,
-                child: Text(isRunning ? 'Pausar' : 'Iniciar'),
+                child: Text(
+                  isRunning ? 'Pausar ❚❚ ' : 'Iniciar ▶',
+                  style: TextStyle(color: Colors.black),
+                ),
               ),
               ElevatedButton(
                 onPressed: skipTimer,
-                child: Text('Pular'),
+                child: Text(
+                  'Pular ↷ ',
+                  style: TextStyle(color: Colors.black),
+                ),
               ),
             ],
           ),
           SizedBox(height: 20),
           Text(
             'Ciclo: ${completedCycles}#',
-            style: TextStyle(fontSize: 20),
+            style: TextStyle(
+                fontSize: 20,
+                color: Colors.white), // Definindo a cor como branca
           ),
           SizedBox(height: 20),
           ElevatedButton(
             onPressed: resetCycleAndTime,
-            child: Text('Reiniciar Ciclo e Tempo'),
+            child: Text(
+              'Reiniciar Ciclo e Tempo ↺ ',
+              style: TextStyle(
+                  color: Colors.white), // Definindo a cor do texto como branco
+            ),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors
+                  .green[700], // Definindo a cor de fundo como verde escuro
+            ),
           ),
           SizedBox(height: 20),
           DropdownButton<String>(
@@ -359,11 +416,17 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
                   children: [
                     Icon(
                       Icons.circle,
-                      color: category['color'],
+                      color: category[
+                          'color'], // Mantendo a cor do ícone conforme especificado para o tema
                       size: 16,
                     ),
                     SizedBox(width: 8),
-                    Text(category['name']),
+                    Text(
+                      category['name'],
+                      style: TextStyle(
+                          color: category[
+                              'color']), // Definindo a cor do texto com base na cor especificada para o tema
+                    ),
                   ],
                 ),
               );
