@@ -54,7 +54,7 @@ class _ExplicacaoScreenState extends State<ExplicacaoScreen> {
         child: Column(
           children: [
             SizedBox(height: 20),
-            Expanded(
+            Flexible(
               child: PageView(
                 controller: _controller,
                 onPageChanged: (index) {
@@ -87,15 +87,6 @@ class _ExplicacaoScreenState extends State<ExplicacaoScreen> {
               ),
             ),
             SizedBox(height: 20),
-            SmoothPageIndicator(
-              controller: _controller,
-              count: 4,
-              effect: WormEffect(
-                dotColor: Colors.white.withOpacity(0.5),
-                activeDotColor: Colors.white,
-              ),
-            ),
-            SizedBox(height: 20),
             if (_currentPage == 3)
               ElevatedButton(
                 onPressed: () {
@@ -121,6 +112,18 @@ class _ExplicacaoScreenState extends State<ExplicacaoScreen> {
                   ),
                 ),
               ),
+            SizedBox(height: 20),
+            SmoothPageIndicator(
+              controller: _controller,
+              count: 4,
+              effect: WormEffect(
+                dotColor: Colors.white.withOpacity(0.5),
+                activeDotColor: Colors.white,
+              ),
+            ),
+            SizedBox(
+                height:
+                    20), // Adicionado um espaçamento extra abaixo do indicador
           ],
         ),
       ),

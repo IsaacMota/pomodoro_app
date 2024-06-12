@@ -53,39 +53,33 @@ class CardScreen extends StatelessWidget {
                     },
                   ),
                   SizedBox(height: 16.0),
-                  ScoreCard(
+                  ScoreCardLocked(
                     color: Colors.red,
-                    score: 70,
                     category: 'Plantas',
                   ),
                   SizedBox(height: 16.0),
-                  ScoreCard(
+                  ScoreCardLocked(
                     color: Colors.green,
-                    score: 95,
                     category: 'Filosofia',
                   ),
                   SizedBox(height: 16.0),
-                  ScoreCard(
+                  ScoreCardLocked(
                     color: Colors.purple,
-                    score: 80,
                     category: 'Matemática',
                   ),
                   SizedBox(height: 16.0),
-                  ScoreCard(
+                  ScoreCardLocked(
                     color: Colors.orange,
-                    score: 90,
                     category: 'Ciências',
                   ),
                   SizedBox(height: 16.0),
-                  ScoreCard(
+                  ScoreCardLocked(
                     color: Colors.teal,
-                    score: 75,
                     category: 'História',
                   ),
                   SizedBox(height: 16.0),
-                  ScoreCard(
+                  ScoreCardLocked(
                     color: Colors.indigo,
-                    score: 85,
                     category: 'Geografia',
                   ),
                 ],
@@ -188,6 +182,57 @@ class ScoreCard extends StatelessWidget {
           ),
         ),
         onTap: onPressed,
+      ),
+    );
+  }
+}
+
+class ScoreCardLocked extends StatelessWidget {
+  final Color color;
+  final String category;
+
+  ScoreCardLocked({
+    required this.color,
+    required this.category,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 4.0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      child: ListTile(
+        contentPadding: EdgeInsets.all(16.0),
+        leading: CircleAvatar(
+          backgroundColor: color.withOpacity(0.5),
+          child: Icon(
+            Icons.lock,
+            color: Colors.white,
+          ),
+        ),
+        title: Text(
+          category,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 20.0,
+          ),
+        ),
+        subtitle: Text(
+          'Desbloqueie para ver',
+          style: TextStyle(
+            fontSize: 16.0,
+          ),
+        ),
+        onTap: () {
+          // Aqui poderia implementar alguma lógica para desbloquear
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Este item está bloqueado.'),
+            ),
+          );
+        },
       ),
     );
   }
